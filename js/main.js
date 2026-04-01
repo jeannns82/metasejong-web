@@ -37,14 +37,26 @@ function renderWorks() {
         const isExternal = item.link && item.link.startsWith('http');
         const targetAttr = isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
 
-        const wrapperStart = item.link ? `<a href="${item.link}"${targetAttr} class="block border-none">` : `<div class="block">`;
+        const isWip = !item.link;
+
+        const wrapperStart = item.link ? `<a href="${item.link}"${targetAttr} class="block border-none">` : `<div class="block cursor-pointer relative">`;
         const wrapperEnd = item.link ? `</a>` : `</div>`;
 
-        projectDiv.className = 'flex flex-col group cursor-pointer';
+        projectDiv.className = isWip ? 'flex flex-col group' : 'flex flex-col group cursor-pointer';
+
+        const wipOverlay = isWip ? `
+            <div class="absolute top-4 right-4 z-40 pointer-events-none">
+                <div class="px-3 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg flex items-center gap-2 transform transition-transform duration-300 group-hover:scale-105">
+                    <div class="w-1.5 h-1.5 rounded-full bg-white/90 animate-pulse"></div>
+                    <span class="text-white drop-shadow-md text-[11px] font-bold tracking-widest">작업 중</span>
+                </div>
+            </div>
+        ` : '';
 
         projectDiv.innerHTML = `
             ${wrapperStart}
-                <div class="w-full bg-transparent overflow-hidden relative tilt-container group-hover:shadow-[0_10px_40px_rgba(0,0,0,0.15)] transition-shadow duration-700" style="perspective: 1000px;">
+                <div class="w-full bg-transparent overflow-hidden relative tilt-container rounded-[20px] group-hover:shadow-[0_10px_40px_rgba(0,0,0,0.15)] transition-shadow duration-700" style="perspective: 1000px;">
+                    ${wipOverlay}
                     <!-- Foreground Transparent Thumbnail -->
                     <img src="${item.image}" alt="${item.title}" class="w-full aspect-video object-cover relative z-10 tilt-img" style="transform: scale(1.02) rotateX(0deg) rotateY(0deg); transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);">
                     <!-- Gradient Overlay (Fade in on hover) -->

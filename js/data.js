@@ -20,8 +20,8 @@ const worksData = [
         hoverImage: "images/metasejong_world_goods.jpg"
     },
     {
-        title: "한글 타이포그래피 포스터",
-        description: "한글 자모의 조형적 아름다움을 현대적 그래픽으로 재해석한 아트 포스터",
+        title: "훈밈정음 미디어아트 프로젝트",
+        description: "훈민정음의 제자원리를 색채 체계와 합자 알고리즘으로 구현하여, 한글의 문화유전자를 시각적 시스템으로 재구축한 미디어 아트",
         image: "images/훈밈정음_t.png",
         hoverImage: "images/meeting_large.jpeg"
     }
