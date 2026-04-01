@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - METASEJONG</title>
+
+    <!-- Design System -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gray: {
+                            800: '#111111',
+                            500: '#888888',
+                            100: '#f4f4f4',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'sans-serif'],
+                        montserrat: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        /* Contact Section Wrapper */
+        .contact-container {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            gap: 4rem;
+            align-items: flex-start;
+            background: transparent;
+        }
+
+        /* Left Column (Google Map) */
+        .contact-map {
+            flex: 0 0 calc(50% - 2rem);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-map iframe {
+            width: 100%;
+            height: 520px;
+            border: 0;
+            display: block;
+        }
+
+        /* Right Column (Contact Info) */
+        .contact-info {
+            flex: 0 0 calc(50% - 2rem);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-family: 'Pretendard', sans-serif;
+            color: #111111;
+        }
+
+        .contact-desc {
+            font-size: 1rem;
+            color: #666666;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.75rem;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .info-label {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #0ea5a4;
+            /* 청록색 브랜드 컬러 */
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .info-value {
+            font-size: 1rem;
+            color: #111111;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .info-value a {
+            color: #111111;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .info-value a:hover {
+            color: #0ea5a4;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .contact-container {
+                gap: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .contact-container {
+                flex-direction: column;
+                /* Stack vertically on mobile */
+                gap: 2.5rem;
+            }
+
+            .contact-map {
+                flex: none;
+                width: 100%;
+            }
+
+            .contact-map iframe {
+                height: 360px;
+                /* Mobile height */
+            }
+
+            .contact-info {
+                flex: none;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header / Navigation -->
+    <header class="fixed top-0 left-0 w-full bg-white/90 backdrop-blur z-50 border-b border-gray-100">
+        <div class="max-w-[1200px] mx-auto px-5 h-[60px] flex items-center justify-between">
+            <a href="index.html" class="font-bold text-xl"><img src="images/logo.png" alt="METASEJONG"
+                    class="h-8 w-auto block"></a>
+            <nav>
+                <ul class="flex gap-6">
+                    <li><a href="index.html"
+                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Introduce</a>
+                    </li>
+                    <li><a href="works.html"
+                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Works</a>
+                    </li>
+                    <li><a href="publication.html"
+                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Publication</a>
+                    </li>
+                    <li><a href="contact.html"
+                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contact Section -->
+    <section id="contact"
+        class="py-20 min-h-screen pt-[140px] bg-gradient-to-b from-[#e0f7fa] via-[#f3e8ff] to-[#e0e7ff] relative overflow-hidden">
+        <div class="max-w-[1200px] mx-auto px-5 relative z-10">
+            <h2 class="text-3xl font-montserrat font-bold mb-3.5 text-center tracking-tight text-gray-800 uppercase">
+                Contact</h2>
+            <div
+                class="w-full h-[1px] bg-gradient-to-r from-transparent via-gray-400 to-transparent opacity-75 shadow-[0_1px_3px_rgba(0,0,0,0.1)] mb-12">
+            </div>
+
+            <div class="contact-container">
+                <!-- Left Column: Map -->
+                <div class="contact-map">
+                    <!-- Google Maps Embed: Place Mode to show Location Card -->
+                    <iframe
+                        src="https://maps.google.com/maps?q=%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EC%88%98%EC%9B%90%EC%8B%9C%20%ED%8C%94%EB%8B%AC%EA%B5%AC%20%ED%9A%A8%EC%9B%90%EB%A1%9C249%EB%B2%88%EA%B8%B8%2046-19&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+
+                <!-- Right Column: Info -->
+                <div class="contact-info">
+                    <p class="contact-desc">메타세종과 함께 새로운 문화예술적 가치를 만들어갈 파트너를 기다립니다.<br>프로젝트 문의 및 제휴 등 궁금한 점이 있으시면 편하게
+                        연락주세요.</p>
+
+                    <div class="info-list">
+                        <!-- Address -->
+                        <div class="info-item">
+                            <span class="info-label">Address</span>
+                            <span class="info-value">경기도 수원시 팔달구 효원로249번길 46-19<br>2층 10호 메타세종</span>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="info-item">
+                            <span class="info-label">Email</span>
+                            <span class="info-value"><a
+                                    href="mailto:hiphangeul@gmail.com">hiphangeul@gmail.com</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 text-center border-t border-gray-100 text-gray-500 text-sm">
+        <div class="max-w-[1200px] mx-auto px-5">
+            <p>&copy; 2026 METASEJONG. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

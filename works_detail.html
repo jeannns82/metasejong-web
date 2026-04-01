@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Detail - METASEJONG</title>
+
+    <!-- Design System -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gray: {
+                            800: '#111111',
+                            500: '#888888',
+                            100: '#f4f4f4',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'sans-serif'],
+                        montserrat: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+        }
+    </style>
+
+    <!-- React & Babel for In-browser Compilation -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body
+    class="bg-gradient-to-b from-[#e0f7fa] via-[#f3e8ff] to-[#e0e7ff] text-gray-900 selection:bg-violet-600 selection:text-white min-h-screen">
+
+    <!-- Header / Navigation -->
+    <header class="fixed top-0 left-0 w-full bg-white/90 backdrop-blur z-50 border-b border-gray-100">
+        <div class="max-w-[1200px] mx-auto px-5 h-[60px] flex items-center justify-between">
+            <a href="index.html" class="font-bold text-xl"><img src="images/logo.png" alt="METASEJONG"
+                    class="h-8 w-auto block"></a>
+            <nav>
+                <ul class="flex gap-6">
+                    <li><a href="index.html"
+                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Introduce</a>
+                    </li>
+                    <li><a href="works.html"
+                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Works</a>
+                    </li>
+                    <li><a href="publication.html"
+                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Publication</a>
+                    </li>
+                    <li><a href="contact.html"
+                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- React Root -->
+    <div id="root"></div>
+
+    <!-- Footer -->
+    <footer class="py-10 text-center border-t border-gray-100 text-gray-500 text-sm">
+        <div class="max-w-[1200px] mx-auto px-5">
+            <p>&copy; 2026 METASEJONG. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- React Component Script -->
+    <script type="text/babel">
+        // 웹사이트 로딩 속도 최적화를 위해 비교적 작은 크기의 원본 및 리사이즈된 이미지를 활용
+        const images = [
+            "images/works/01.jpg",
+            "images/works/02.jpg",
+            "images/works/03.jpg",
+            "images/works/L1000678-4_1000.jpg",
+            "images/works/L1010677-1.jpg",
+            "images/works/L1010689-1_500.jpg",
+            "images/works/L1010690-1_1000.jpg",
+            "images/works/L1010692-1.jpg",
+            "images/works/L1010707-1.jpg",
+            "images/works/L1010714-1_1000.jpg",
+            "images/works/L1010719-1.jpg",
+            "images/works/L1010727-1_1000.jpg",
+            "images/works/L1010732-1_1000.jpg",
+            "images/works/L1010742-1_500.jpg",
+            "images/works/L1010745-1_500.jpg",
+            "images/works/L1020503-1_500.jpg",
+            "images/works/L1020504-1_500.jpg",
+            "images/works/L1020509-1_500.jpg",
+            "images/works/L1020576-1_500x700.jpg",
+            "images/works/L1020582-1.jpg",
+            "images/works/L1020582-1_700x500.jpg",
+            "images/works/L1020593-1.jpg",
+            "images/works/hangeul_color_note.jpg",
+            "images/works/hello_sejong_badge.jpg",
+            "images/works/세종피규어_속상자1.jpg",
+            "images/works/세종피규어_정면.jpg",
+            "images/works/아트토이_전체샷_500.jpg",
+            "images/works/안녕세종뱃지.jpg",
+            "images/works/피규어케이스_측면.jpg",
+            "images/works/한글의색노트.jpg"
+        ];
+
+        function WorkDetailPage() {
+            return (
+                <div className="pt-24 pb-24 md:pb-32 min-h-screen">
+                    <div className="max-w-[1400px] mx-auto px-5 md:px-10">
+                        {/* Masonry Image Layout: Tailwind 'columns' 사용 (최대 3열 배치를 통해 이미지 크기 확대) */}
+                        <div className="columns-1 sm:columns-2 md:columns-3 gap-6 md:gap-8 space-y-6 md:space-y-8">
+                            {images.map((src, index) => (
+                                <div key={index} className="break-inside-avoid relative group overflow-hidden bg-white/50 border-[0.5pt] border-white/20">
+                                    <img 
+                                        src={src} 
+                                        alt={`Work Gallery ${index + 1}`} 
+                                        className="w-full h-auto object-cover transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.03]"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                    {/* Hover interaction (Subtle fade) */}
+                                    <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<WorkDetailPage />);
+    </script>
+</body>
+
+</html>

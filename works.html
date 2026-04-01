@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Works - METASEJONG</title>
+
+    <!-- Design System -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gray: {
+                            800: '#111111',
+                            500: '#888888',
+                            100: '#f4f4f4',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'sans-serif'],
+                        montserrat: ['Montserrat', 'sans-serif'],
+                    },
+                    keyframes: {
+                        gradient: {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        },
+                        wiggle: {
+                            '0%, 100%': { transform: 'scale(1) rotate(0deg)' },
+                            '25%': { transform: 'scale(1.015) rotate(-0.5deg)' },
+                            '75%': { transform: 'scale(0.985) rotate(0.5deg)' },
+                        }
+                    },
+                    animation: {
+                        gradient: 'gradient 15s ease infinite',
+                        wiggle: 'wiggle 2s ease-in-out infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        /* Mongle-mongle Floating Blobs Background */
+        .blob-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            overflow: hidden;
+            background: #fdfdfd;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.7;
+            animation: float 20s infinite ease-in-out alternate;
+        }
+
+        .blob-1 {
+            width: 70vw;
+            height: 70vw;
+            max-width: 800px;
+            max-height: 800px;
+            background: #e0f7fa;
+            /* Cyan pastel */
+            top: -10%;
+            left: -10%;
+            animation-duration: 25s;
+        }
+
+        .blob-2 {
+            width: 60vw;
+            height: 60vw;
+            max-width: 700px;
+            max-height: 700px;
+            background: #f3e8ff;
+            /* Purple pastel */
+            bottom: -10%;
+            right: -10%;
+            animation-duration: 28s;
+            animation-delay: -5s;
+        }
+
+        .blob-3 {
+            width: 50vw;
+            height: 50vw;
+            max-width: 600px;
+            max-height: 600px;
+            background: #e8f4f8;
+            /* Blue pastel */
+            top: 20%;
+            left: 30%;
+            animation-duration: 22s;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(8vw, -8vh) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-4vw, 12vh) scale(0.9);
+            }
+
+            100% {
+                transform: translate(12vw, 4vh) scale(1.05);
+            }
+        }
+
+        /* Pixel Art Character Animation */
+        @keyframes bounce-hello {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-12px);
+            }
+        }
+
+        .pixel-character {
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+            width: 40px;
+            height: auto;
+            image-rendering: pixelated;
+            /* Sharp pixel art */
+            z-index: 30;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .group:hover .pixel-character {
+            opacity: 1;
+            animation: bounce-hello 0.35s cubic-bezier(0.28, 0.84, 0.42, 1) infinite alternate;
+        }
+    </style>
+</head>
+
+<body class="bg-transparent">
+    <div class="blob-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Header / Navigation -->
+    <header class="fixed top-0 left-0 w-full bg-white/90 backdrop-blur z-50 border-b border-gray-100">
+        <div class="max-w-[1200px] mx-auto px-5 h-[60px] flex items-center justify-between">
+            <a href="index.html" class="font-bold text-xl"><img src="images/logo.png" alt="METASEJONG"
+                    class="h-8 w-auto block"></a>
+            <nav>
+                <ul class="flex gap-6">
+                    <li><a href="index.html"
+                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Introduce</a>
+                    </li>
+                    <li><a href="works.html"
+                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Works</a>
+                    </li>
+                    <li><a href="publication.html"
+                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Publication</a>
+                    </li>
+                    <li><a href="contact.html"
+                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Works Section -->
+    <section id="works" class="py-20 min-h-screen pt-[140px] relative overflow-hidden">
+
+
+        <div class="w-full max-w-[1600px] mx-auto px-10 md:px-20 relative z-10">
+            <h2 class="text-3xl font-montserrat font-bold mb-3.5 text-center tracking-tight text-gray-800 uppercase">
+                WORKS</h2>
+            <div
+                class="w-full h-[1px] bg-gradient-to-r from-transparent via-gray-400 to-transparent opacity-75 shadow-[0_1px_3px_rgba(0,0,0,0.1)] mb-20">
+            </div>
+            <div id="works-list" class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-32">
+                <!-- Dynamic Content via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 text-center border-t border-gray-100 text-gray-500 text-sm">
+        <div class="max-w-[1200px] mx-auto px-5">
+            <p>&copy; 2026 METASEJONG. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

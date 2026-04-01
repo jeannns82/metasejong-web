@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publication - METASEJONG</title>
+
+    <!-- Design System -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gray: {
+                            800: '#111111',
+                            500: '#888888',
+                            100: '#f4f4f4',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'sans-serif'],
+                        montserrat: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header / Navigation -->
+    <header class="fixed top-0 left-0 w-full bg-white/90 backdrop-blur z-50 border-b border-gray-100">
+        <div class="max-w-[1200px] mx-auto px-5 h-[60px] flex items-center justify-between">
+            <a href="index.html" class="font-bold text-xl"><img src="images/logo.png" alt="METASEJONG"
+                    class="h-8 w-auto block"></a>
+            <nav>
+                <ul class="flex gap-6">
+                    <li><a href="index.html"
+                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Introduce</a>
+                    </li>
+                    <li><a href="works.html"
+                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Works</a>
+                    </li>
+                    <li><a href="publication.html"
+                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Publication</a>
+                    </li>
+                    <li><a href="contact.html"
+                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Publication Section -->
+    <section id="publication"
+        class="py-20 min-h-screen pt-[140px] bg-gradient-to-b from-[#e0f7fa] via-[#f3e8ff] to-[#e0e7ff] relative overflow-hidden">
+        <div class="max-w-[1200px] mx-auto px-5 relative z-10">
+            <h2 class="text-3xl font-montserrat font-bold mb-3.5 text-center tracking-tight text-gray-800 uppercase">
+                Publication</h2>
+            <div
+                class="w-full h-[1px] bg-gradient-to-r from-transparent via-gray-400 to-transparent opacity-75 shadow-[0_1px_3px_rgba(0,0,0,0.1)] mb-12">
+            </div>
+            <div id="publication-list" class="flex flex-col gap-0">
+                <!-- Dynamic Content via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 text-center border-t border-gray-100 text-gray-500 text-sm">
+        <div class="max-w-[1200px] mx-auto px-5">
+            <p>&copy; 2026 METASEJONG. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
