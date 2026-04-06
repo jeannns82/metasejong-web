@@ -84,9 +84,9 @@
     <!-- Header / Navigation -->
     <header class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-md z-50 border-b border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.03)]">
         <div class="max-w-[1200px] mx-auto px-5 h-[60px] flex items-center justify-between">
-            <a href="index.html" class="font-bold text-xl"><img src="images/logo.png" alt="METASEJONG"
+            <a href="index.html" class="font-bold text-xl shrink-0"><img src="images/logo.png" alt="METASEJONG"
                     class="h-8 w-auto block"></a>
-            <nav>
+            <nav class="hidden md:block">
                 <ul class="flex gap-6">
                     <li><a href="index.html"
                             class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Introduce</a>
@@ -109,13 +109,13 @@
     </header>
 
     <!-- World Section - Chat & 3D Interatcion -->
-    <section class="flex-1 pt-[80px] pb-10 flex items-center justify-center relative overflow-hidden">
+    <section class="flex-1 pt-[80px] pb-10 flex items-center justify-center relative overflow-x-hidden md:overflow-hidden">
         
         <!-- Decorative Background Elements -->
         <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-[#c4b5fd]/40 to-[#93c5fd]/40 blur-[80px] pointer-events-none"></div>
         <div class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-gradient-to-br from-[#fbcfe8]/40 to-[#bae6fd]/40 blur-[100px] pointer-events-none"></div>
 
-        <div class="max-w-[1400px] w-full mx-auto px-5 h-[calc(100vh-140px)] min-h-[600px] flex flex-col md:flex-row gap-6 relative z-10">
+        <div class="max-w-[1400px] w-full mx-auto px-5 h-auto md:h-[calc(100vh-140px)] min-h-0 md:min-h-[600px] flex flex-col md:flex-row gap-6 relative z-10">
             
             <!-- Character Selector & 3D Viewer Area (Left Side) -->
             <div class="w-full md:w-1/2 lg:w-3/5 h-[400px] md:h-full flex flex-col bg-white/40 backdrop-blur-xl border border-white/60 rounded-[32px] p-6 shadow-[0_8px_32px_rgba(0,0,0,0.04)] relative">
