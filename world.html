@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World - METASEJONG</title>
+
+    <!-- Design System -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gray: {
+                            800: '#111111',
+                            500: '#888888',
+                            100: '#f4f4f4',
+                            50: '#f9f9f9',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'sans-serif'],
+                        montserrat: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* 3D Model Viewer CSS */
+        #three-container {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            outline: none;
+        }
+
+        /* Chat scrollbar customization */
+        .chat-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .chat-scroll::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .chat-scroll::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .message-anim {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+    </style>
+
+    <!-- Three.js Import Map -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+    <!-- Custom 3D Script -->
+    <script type="module" src="js/world3d.js" defer></script>
+</head>
+
+<body class="bg-gradient-to-br from-[#f8fafc] via-[#f1f5f9] to-[#e2e8f0] text-gray-900 min-h-screen flex flex-col">
+
+    <!-- Header / Navigation -->
+    <header class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-md z-50 border-b border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.03)]">
+        <div class="max-w-[1200px] mx-auto px-5 h-[60px] flex items-center justify-between">
+            <a href="index.html" class="font-bold text-xl"><img src="images/logo.png" alt="METASEJONG"
+                    class="h-8 w-auto block"></a>
+            <nav>
+                <ul class="flex gap-6">
+                    <li><a href="index.html"
+                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Introduce</a>
+                    </li>
+                    <li><a href="works.html"
+                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Works</a>
+                    </li>
+                    <li><a href="world.html"
+                            class="text-sm text-gray-800 font-semibold transition-colors">World</a>
+                    </li>
+                    <li><a href="publication.html"
+                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Publication</a>
+                    </li>
+                    <li><a href="contact.html"
+                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- World Section - Chat & 3D Interatcion -->
+    <section class="flex-1 pt-[80px] pb-10 flex items-center justify-center relative overflow-hidden">
+        
+        <!-- Decorative Background Elements -->
+        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-[#c4b5fd]/40 to-[#93c5fd]/40 blur-[80px] pointer-events-none"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-gradient-to-br from-[#fbcfe8]/40 to-[#bae6fd]/40 blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-[1400px] w-full mx-auto px-5 h-[calc(100vh-140px)] min-h-[600px] flex flex-col md:flex-row gap-6 relative z-10">
+            
+            <!-- Character Selector & 3D Viewer Area (Left Side) -->
+            <div class="w-full md:w-1/2 lg:w-3/5 h-[400px] md:h-full flex flex-col bg-white/40 backdrop-blur-xl border border-white/60 rounded-[32px] p-6 shadow-[0_8px_32px_rgba(0,0,0,0.04)] relative">
+                
+                <!-- Character Tabs -->
+                <div class="flex items-center gap-2 mb-4 bg-white/50 p-1.5 rounded-full self-start shadow-sm border border-white/80">
+                    <button id="tab-king" class="px-6 py-2 rounded-full text-sm font-bold bg-white text-gray-900 shadow-sm transition-all">King Sejong</button>
+                    <button id="tab-hip" class="px-6 py-2 rounded-full text-sm font-medium text-gray-500 hover:text-gray-800 transition-all">Hip Sejong</button>
+                </div>
+
+                <!-- 3D Model Viewers -->
+                <div class="flex-1 w-full bg-gradient-to-b from-transparent to-black/5 rounded-[20px] overflow-hidden relative">
+                    
+                    <!-- Raw Three.js Target Container -->
+                    <div id="three-container" class="absolute inset-0 z-10 w-full h-full cursor-move"></div>
+
+                    <!-- Loader Overlay -->
+                    <div id="loading-overlay" class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-white/50 backdrop-blur-sm transition-opacity duration-300">
+                        <span class="text-3xl mb-2 block animate-bounce">⏳</span>
+                        <span class="text-gray-500 font-medium text-sm tracking-widest">LOADING 3D ASSETS...</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Chat Interface Area (Right Side) -->
+            <div class="w-full md:w-1/2 lg:w-2/5 h-[500px] md:h-full flex flex-col bg-white/70 backdrop-blur-2xl border border-white/80 rounded-[32px] p-6 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
+                
+                <!-- Chat Header -->
+                <div class="flex items-center gap-4 border-b border-gray-100 pb-4 mb-4">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-[#818cf8] to-[#c084fc] flex items-center justify-center text-white text-lg shadow-inner">
+                        <span id="chat-icon">👑</span>
+                    </div>
+                    <div>
+                        <h2 id="chat-title" class="font-bold text-lg text-gray-900 tracking-tight">세종대왕 (King Sejong)</h2>
+                        <div class="flex items-center gap-1.5 mt-0.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            <span class="text-[12px] text-gray-500 font-medium">온라인 (AI 연결 예정)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat History Scroll Area -->
+                <div class="flex-1 overflow-y-auto chat-scroll pr-2 flex flex-col gap-5 pb-4" id="chat-history">
+                    
+                    <!-- AI Character Message -->
+                    <div class="flex gap-3 message-anim items-end">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-100 to-purple-100 flex-shrink-0 flex items-center justify-center text-sm shadow-sm border border-white">👑</div>
+                        <div class="bg-gray-50 border border-gray-100/80 px-4 py-3 rounded-2xl rounded-bl-sm shadow-sm max-w-[85%] relative">
+                            <p class="text-[14px] text-gray-700 leading-relaxed font-light">반갑소. 나는 백성을 몹시 아끼는 조선의 임금 도(祹)라고 하오. 무엇이 궁금하여 이곳에 찾아왔소?</p>
+                            <span class="text-[10px] text-gray-400 absolute -bottom-5 left-1">오전 10:00</span>
+                        </div>
+                    </div>
+
+                    <!-- User Message (Simulation) -->
+                    <div class="flex gap-3 message-anim items-end justify-end mt-4">
+                        <div class="bg-blue-600 text-white px-4 py-3 rounded-2xl rounded-br-sm shadow-md max-w-[85%] relative">
+                            <p class="text-[14px] leading-relaxed font-light">훈민정음을 창제하시면서 가장 힘들었던 점이 무엇인가요?</p>
+                            <span class="text-[10px] text-gray-400 absolute -bottom-5 right-1">오전 10:01</span>
+                        </div>
+                    </div>
+
+                    <!-- AI Character Loading/Typing Indicator -->
+                    <div class="flex gap-3 message-anim items-end mt-4" style="animation-delay: 0.5s;">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-100 to-purple-100 flex-shrink-0 flex items-center justify-center text-sm shadow-sm border border-white">👑</div>
+                        <div class="bg-gray-50 border border-gray-100/80 px-4 py-3.5 rounded-2xl rounded-bl-sm shadow-sm">
+                            <div class="flex gap-1.5 items-center">
+                                <div class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style="animation-duration: 1s;"></div>
+                                <div class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.2s; animation-duration: 1s;"></div>
+                                <div class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.4s; animation-duration: 1s;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Chat Input Box -->
+                <div class="mt-auto pt-4 relative">
+                    <form onsubmit="event.preventDefault();" class="relative flex items-center">
+                        <input type="text" placeholder="메시지를 입력하세요... (디자인 데모)" 
+                            class="w-full bg-white/80 border border-gray-200/80 text-sm text-gray-800 rounded-full pl-5 pr-12 py-3.5 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100/50 transition-all shadow-sm">
+                        <button type="submit" class="absolute right-2 w-9 h-9 flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white rounded-full transition-colors shadow-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill transform translate-x-[-1px] translate-y-[1px]" viewBox="0 0 16 16">
+                                <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-6 text-center border-t border-gray-100 text-gray-500 text-sm bg-white/50 backdrop-blur-md">
+        <div class="max-w-[1200px] mx-auto px-5">
+            <p>&copy; 2026 METASEJONG. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Interactive Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnKing = document.getElementById('tab-king');
+            const btnHip = document.getElementById('tab-hip');
+            
+            const chatTitle = document.getElementById('chat-title');
+            const chatIcon = document.getElementById('chat-icon');
+
+            // Set active styles for tab
+            const setActiveTab = (activeBtn, inactiveBtn) => {
+                activeBtn.classList.remove('text-gray-500', 'font-medium', 'hover:text-gray-800');
+                activeBtn.classList.add('bg-white', 'text-gray-900', 'font-bold', 'shadow-sm');
+                
+                inactiveBtn.classList.remove('bg-white', 'text-gray-900', 'font-bold', 'shadow-sm');
+                inactiveBtn.classList.add('text-gray-500', 'font-medium', 'hover:text-gray-800');
+                inactiveBtn.style.backgroundColor = 'transparent';
+            };
+
+            // Switch to King Sejong
+            btnKing.addEventListener('click', () => {
+                setActiveTab(btnKing, btnHip);
+                chatTitle.textContent = "세종대왕 (King Sejong)";
+                chatIcon.textContent = "👑";
+                // Trigger Three.js update
+                window.dispatchEvent(new CustomEvent('changeWorldModel', { detail: 'king' }));
+            });
+
+            // Switch to Hip Sejong
+            btnHip.addEventListener('click', () => {
+                setActiveTab(btnHip, btnKing);
+                chatTitle.textContent = "힙세종 (Hip Sejong)";
+                chatIcon.textContent = "😎";
+                // Trigger Three.js update
+                window.dispatchEvent(new CustomEvent('changeWorldModel', { detail: 'hip' }));
+            });
+        });
+    </script>
+</body>
+
+</html>
