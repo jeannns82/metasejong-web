@@ -194,7 +194,7 @@
 
                 <!-- Chat Input Box -->
                 <div class="mt-auto pt-4 relative">
-                    <form onsubmit="event.preventDefault();" class="relative flex items-center">
+                    <form id="chat-form" onsubmit="event.preventDefault();" class="relative flex items-center">
                         <input type="text" placeholder="메시지를 입력하세요... (디자인 데모)" 
                             class="w-full bg-white/80 border border-gray-200/80 text-sm text-gray-800 rounded-full pl-5 pr-12 py-3.5 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100/50 transition-all shadow-sm">
                         <button type="submit" class="absolute right-2 w-9 h-9 flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white rounded-full transition-colors shadow-md">
@@ -235,6 +235,17 @@
                 inactiveBtn.classList.add('text-gray-500', 'font-medium', 'hover:text-gray-800');
                 inactiveBtn.style.backgroundColor = 'transparent';
             };
+
+            // Chat Form Submission Simulation (Reaction Trigger)
+            const chatForm = document.getElementById('chat-form');
+            chatForm.addEventListener('submit', () => {
+                const input = chatForm.querySelector('input');
+                if (input.value.trim() !== '') {
+                    // Trigger character reaction animation in 3D 
+                    window.dispatchEvent(new CustomEvent('characterReact'));
+                    input.value = ''; // Clear after send
+                }
+            });
 
             // Switch to King Sejong
             btnKing.addEventListener('click', () => {

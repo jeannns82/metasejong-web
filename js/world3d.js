@@ -8,6 +8,10 @@ let headBone = null; // 머리 움직임을 제어할 뼈대 객체
 let mouse = new THREE.Vector2();
 let targetRotation = new THREE.Vector2();
 
+// 리액션 애니메이션용 상태 변수
+let isReacting = false;
+let reactionStartTime = 0;
+
 const loader = new GLTFLoader();
 
 // Model paths
@@ -71,6 +75,10 @@ function init() {
     window.addEventListener('resize', onWindowResize);
     window.addEventListener('changeWorldModel', (e) => {
         loadModel(models[e.detail]);
+    });
+    window.addEventListener('characterReact', () => {
+        isReacting = true;
+        reactionStartTime = Date.now();
     });
 
     // 마우스 추적 이벤트 (인터랙션)
@@ -179,14 +187,40 @@ function onWindowResize() {
 function animate() {
     requestAnimationFrame(animate);
     
+    // 애니메이션 시간 기반 연산
+    const time = Date.now() * 0.002;
+    let targetYOffset = 0;
+    let headNod = 0;
+
+    // 1. 대답 리액션 (질문 입력 시 기분 좋게 움직임)
+    if (isReacting) {
+        const elapsed = Date.now() - reactionStartTime;
+        if (elapsed < 800) { // 0.8초 동안 반응
+            // 통통 튀는 들썩임 (절댓값을 씌워 통통 튀도록)
+            targetYOffset = Math.abs(Math.sin(elapsed * 0.015)) * 0.06;
+            // 고개도 귀엽게 끄덕이는 효과
+            headNod = Math.sin(elapsed * 0.015) * 0.15;
+        } else {
+            isReacting = false;
+        }
+    } else {
+        // 2. 평상시 숨쉬는 느낌 (Idle)
+        // 천천히 위아래로 부유하는 듯한 숨쉬기
+        targetYOffset = Math.sin(time) * 0.012;
+    }
+
+    if (currentModel) {
+        // 스무스하게 위치 적용
+        currentModel.position.y += (targetYOffset - currentModel.position.y) * 0.2;
+    }
+    
     // 캐릭터 머리 추적 트위닝 (Lerp)
     if (headBone) {
         // 부드러운 움직임을 위한 보간 연산 (현재 각도에서 타겟 각도로 5%씩 이동)
-        // 뼈대의 축이 일반적인 Y-up 축과 다를 수 있으나 가장 스탠다드한 기준 적용
         headBone.rotation.y += (targetRotation.x - headBone.rotation.y) * 0.05;
-        headBone.rotation.x += (-targetRotation.y - headBone.rotation.x) * 0.05;
+        headBone.rotation.x += (-targetRotation.y - headBone.rotation.x + headNod) * 0.05;
     } else if (currentModel) {
-        // 만약 모델에 특수 뼈대 스켈레톤이 없다면, 몸통 전체를 부드럽게 회전 (백업 로직)
+        // 만약 모델에 특수 뼈대 스켈레톤이 없다면, 몸통 전제를 부드럽게 회전
         currentModel.rotation.y += (targetRotation.x - currentModel.rotation.y) * 0.05;
     }
 
