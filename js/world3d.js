@@ -204,9 +204,9 @@ function animate() {
             isReacting = false;
         }
     } else {
-        // 2. 평상시 숨쉬는 느낌 (Idle)
-        // 천천히 위아래로 부유하는 듯한 숨쉬기
-        targetYOffset = Math.sin(time) * 0.012;
+        // 2. 평상시 상태 (Idle)
+        // 사용자의 요청으로 둥둥 떠다니는 모션을 끄고 가만히 있도록 수정
+        targetYOffset = 0;
     }
 
     if (currentModel) {
