@@ -160,47 +160,22 @@
 
                 <!-- Chat History Scroll Area -->
                 <div class="flex-1 overflow-y-auto chat-scroll pr-2 flex flex-col gap-5 pb-4" id="chat-history">
-                    
-                    <!-- AI Character Message -->
+                    <!-- 초기 메시지 -->
                     <div class="flex gap-3 message-anim items-end">
                         <div class="w-8 h-8 rounded-full overflow-hidden flex-shrink-0 border border-gray-100 shadow-sm bg-white">
-                            <img src="images/icon01.png" alt="Profile" class="w-full h-full object-cover">
+                            <img src="images/icon01.png" alt="Profile" class="w-full h-full object-cover" id="chat-icon-ai-profile">
                         </div>
                         <div class="bg-gray-50 border border-gray-100/80 px-4 py-3 rounded-2xl rounded-bl-sm shadow-sm max-w-[85%] relative">
                             <p class="text-[14px] text-gray-700 leading-relaxed font-light">반갑소. 나는 백성을 몹시 아끼는 조선의 임금 도(祹)라고 하오. 무엇이 궁금하여 이곳에 찾아왔소?</p>
-                            <span class="text-[10px] text-gray-400 absolute -bottom-5 left-1">오전 10:00</span>
                         </div>
                     </div>
-
-                    <!-- User Message (Simulation) -->
-                    <div class="flex gap-3 message-anim items-end justify-end mt-4">
-                        <div class="bg-blue-600 text-white px-4 py-3 rounded-2xl rounded-br-sm shadow-md max-w-[85%] relative">
-                            <p class="text-[14px] leading-relaxed font-light">훈민정음을 창제하시면서 가장 힘들었던 점이 무엇인가요?</p>
-                            <span class="text-[10px] text-gray-400 absolute -bottom-5 right-1">오전 10:01</span>
-                        </div>
-                    </div>
-
-                    <!-- AI Character Loading/Typing Indicator -->
-                    <div class="flex gap-3 message-anim items-end mt-4" style="animation-delay: 0.5s;">
-                        <div class="w-8 h-8 rounded-full overflow-hidden flex-shrink-0 border border-gray-100 shadow-sm bg-white">
-                            <img src="images/icon01.png" alt="Profile" class="w-full h-full object-cover">
-                        </div>
-                        <div class="bg-gray-50 border border-gray-100/80 px-4 py-3.5 rounded-2xl rounded-bl-sm shadow-sm">
-                            <div class="flex gap-1.5 items-center">
-                                <div class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style="animation-duration: 1s;"></div>
-                                <div class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.2s; animation-duration: 1s;"></div>
-                                <div class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.4s; animation-duration: 1s;"></div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
 
                 <!-- Chat Input Box -->
                 <div class="mt-auto pt-4 relative">
-                    <form id="chat-form" onsubmit="event.preventDefault();" class="relative flex items-center">
-                        <input type="text" placeholder="메시지를 입력하세요... (디자인 데모)" 
-                            class="w-full bg-white/80 border border-gray-200/80 text-sm text-gray-800 rounded-full pl-5 pr-12 py-3.5 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100/50 transition-all shadow-sm">
+                    <form id="chat-form" class="relative flex items-center">
+                        <input type="text" id="chat-input" placeholder="여기에 질문을 입력해보세요..." 
+                            class="w-full bg-white/80 border border-gray-200/80 text-sm text-gray-800 rounded-full pl-5 pr-12 py-3.5 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100/50 transition-all shadow-sm" required>
                         <button type="submit" class="absolute right-2 w-9 h-9 flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white rounded-full transition-colors shadow-md">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill transform translate-x-[-1px] translate-y-[1px]" viewBox="0 0 16 16">
                                 <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
@@ -221,7 +196,8 @@
         </div>
     </footer>
 
-    <!-- Interactive Script -->
+    <!-- 3D & Chat Script -->
+    <script src="js/chat.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const btnKing = document.getElementById('tab-king');
@@ -229,6 +205,7 @@
             
             const chatTitle = document.getElementById('chat-title');
             const chatIcon = document.getElementById('chat-icon');
+            const chatIconProfile = document.getElementById('chat-icon-ai-profile');
 
             // Set active styles for tab
             const setActiveTab = (activeBtn, inactiveBtn) => {
@@ -240,23 +217,13 @@
                 inactiveBtn.style.backgroundColor = 'transparent';
             };
 
-            // Chat Form Submission Simulation (Reaction Trigger)
-            const chatForm = document.getElementById('chat-form');
-            chatForm.addEventListener('submit', () => {
-                const input = chatForm.querySelector('input');
-                if (input.value.trim() !== '') {
-                    // Trigger character reaction animation in 3D 
-                    window.dispatchEvent(new CustomEvent('characterReact'));
-                    input.value = ''; // Clear after send
-                }
-            });
-
             // Switch to King Sejong
             btnKing.addEventListener('click', () => {
                 setActiveTab(btnKing, btnHip);
                 chatTitle.textContent = "세종대왕 (King Sejong)";
                 chatIcon.src = "images/icon01.png";
-                // Trigger Three.js update
+                if(chatIconProfile) chatIconProfile.src = "images/icon01.png";
+                // Trigger context change in chat.js if needed (e.g., reset conversation)
                 window.dispatchEvent(new CustomEvent('changeWorldModel', { detail: 'king' }));
             });
 
@@ -264,9 +231,8 @@
             btnHip.addEventListener('click', () => {
                 setActiveTab(btnHip, btnKing);
                 chatTitle.textContent = "힙세종 (Hip Sejong)";
-                // 만약 힙세종 전용 아이콘(icon02.png)이 추가되면 이 부분을 변경하세요
                 chatIcon.src = "images/icon01.png"; 
-                // Trigger Three.js update
+                if(chatIconProfile) chatIconProfile.src = "images/icon01.png";
                 window.dispatchEvent(new CustomEvent('changeWorldModel', { detail: 'hip' }));
             });
         });
