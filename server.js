@@ -40,7 +40,7 @@ app.post('/api/chat', async (req, res) => {
         
     } catch (error) {
         console.error("OpenAI 서버 통신 에러:", error);
-        res.status(500).json({ error: error.message, content: "통신 중 문제가 발생했소. 관리자에게 문의하시오." });
+        res.status(500).json({ error: error.message, content: "통신 중 문제가 발생했어요. 관리자에게 문의해주세요." });
     }
 });
 

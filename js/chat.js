@@ -185,6 +185,6 @@ async function fetchAIResponse(messages) {
         return data.content;
     } catch (error) {
         console.error("백엔드 통신 에러:", error);
-        return "으음... 지금 통신망에 폭우가 내리는 듯하오. (에러 발생: " + error.message + ") 로컬 서버(localhost:3000)를 켰는지 확인하시오!";
+        return "으음... 지금 통신망에 약간의 문제가 있는 것 같아요. (에러 발생: " + error.message + ") 로컬 서버(localhost:3000)가 잘 켜져 있는지 확인해주세요!";
     }
 }
