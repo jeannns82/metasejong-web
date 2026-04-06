@@ -1,9 +1,7 @@
 // ==========================================
-// 💡 여기에 실제 OPENAI API 키를 입력하세요!
+// 💡 클라이언트(브라우저) 사이드 채팅 로직
+// API 키는 백엔드의 .env 파일로 전부 숨겨졌습니다.
 // ==========================================
-// 예시: "sk-proj-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-const OPENAI_API_KEY = ""; 
-
 // ==========================================
 // 🎭 페르소나 설정 (System Prompt)
 // ==========================================
@@ -161,33 +159,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// 실제 ChatGPT API 호출
+// 실제 백엔드 API (Node.js) 호출
 async function fetchAIResponse(messages) {
-    if (!OPENAI_API_KEY) {
-        // API 키가 없을 때의 더미(Dummy) 가짜 응답 처리
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                if(currentPersona === 'king') {
-                    resolve("허허, 짐이 그대의 물음에 흔쾌히 답해주고 싶으나, 아직 나의 지식 보따리(API Key)가 연결되지 않은 듯하구려. 개발자가 `js/chat.js`의 첫 줄에 OpenAI 열쇠를 놓아준다면 조선 제일의 지혜를 내어주리다!");
-                } else {
-                    resolve("요 맥썹노이즈!🎤 내가 대답해주고 싶은데 아직 API Key가 스폰서 안 됐어 브로! `js/chat.js` 파일 첫 줄에 키를 심어주면 내 엄청난 랩을 들려줄게 왓업!");
-                }
-            }, 1500); // 1.5초 딜레이로 생각하는 척!
-        });
-    }
-
     try {
-        const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        // 로컬 환경에서는 localhost:3000, 나중에 클라우드 렌더(Render) 등에 올리면 그 주소로 바꿉니다.
+        const apiUrl = "http://localhost:3000/api/chat";
+        
+        const response = await fetch(apiUrl, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${OPENAI_API_KEY}`
             },
             body: JSON.stringify({
-                model: "gpt-4o-mini", // 빠르고 가성비 좋은 모델
                 messages: messages,
-                temperature: 0.7,
-                max_tokens: 300
+                currentPersona: currentPersona
             })
         });
 
@@ -196,9 +181,9 @@ async function fetchAIResponse(messages) {
         }
 
         const data = await response.json();
-        return data.choices[0].message.content;
+        return data.content;
     } catch (error) {
-        console.error("OpenAI 통신 에러:", error);
-        return "으음... 지금 통신망에 폭우가 내리는 듯하오. (에러 발생: " + error.message + ")";
+        console.error("백엔드 통신 에러:", error);
+        return "으음... 지금 통신망에 폭우가 내리는 듯하오. (에러 발생: " + error.message + ") 로컬 서버(localhost:3000)를 켰는지 확인하시오!";
     }
 }
