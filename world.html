@@ -37,12 +37,36 @@
             overflow-x: hidden;
         }
 
-        /* 3D Model Viewer CSS */
-        #three-container {
+        /* 2D Character Viewer CSS */
+        #two-d-container {
             width: 100%;
             height: 100%;
-            background-color: transparent;
-            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes characterWave {
+            0% { transform: rotate(0deg); }
+            15% { transform: rotate(10deg); }
+            30% { transform: rotate(-10deg); }
+            45% { transform: rotate(8deg); }
+            60% { transform: rotate(-8deg); }
+            75% { transform: rotate(5deg); }
+            90% { transform: rotate(-5deg); }
+            100% { transform: rotate(0deg); }
+        }
+        .character-wave {
+            animation: characterWave 1.5s ease-in-out;
+            transform-origin: bottom center;
+        }
+
+        @keyframes floatIdle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .character-idle {
+            animation: floatIdle 3s ease-in-out infinite;
         }
 
         /* Chat scrollbar customization */
@@ -66,17 +90,7 @@
         }
     </style>
 
-    <!-- Three.js Import Map -->
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-            }
-        }
-    </script>
-    <!-- Custom 3D Script -->
-    <script type="module" src="js/world3d.js" defer></script>
+    <!-- Custom Script (Former 3D removed) -->
 </head>
 
 <body class="bg-gradient-to-br from-[#f8fafc] via-[#f1f5f9] to-[#e2e8f0] text-gray-900 min-h-screen flex flex-col">
@@ -122,22 +136,13 @@
                 
                 <!-- Character Tabs -->
                 <div class="flex items-center gap-2 mb-4 bg-white/50 p-1.5 rounded-full self-start shadow-sm border border-white/80">
-                    <button id="tab-king" class="px-6 py-2 rounded-full text-sm font-bold bg-white text-gray-900 shadow-sm transition-all">King Sejong</button>
-                    <button id="tab-hip" class="px-6 py-2 rounded-full text-sm font-medium text-gray-500 hover:text-gray-800 transition-all">Hip Sejong</button>
+                    <button id="tab-king" class="px-6 py-2 rounded-full text-sm font-bold bg-white text-gray-900 shadow-sm transition-all focus:outline-none">King Sejong</button>
+                    <!-- <button id="tab-hip" class="px-6 py-2 rounded-full text-sm font-medium text-gray-500 hover:text-gray-800 transition-all">Hip Sejong</button> -->
                 </div>
 
-                <!-- 3D Model Viewers -->
-                <div class="flex-1 w-full bg-gradient-to-b from-transparent to-black/5 rounded-[20px] overflow-hidden relative">
-                    
-                    <!-- Raw Three.js Target Container -->
-                    <div id="three-container" class="absolute inset-0 z-10 w-full h-full cursor-move"></div>
-
-                    <!-- Loader Overlay -->
-                    <div id="loading-overlay" class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-white/50 backdrop-blur-sm transition-opacity duration-300">
-                        <span class="text-3xl mb-2 block animate-bounce">⏳</span>
-                        <span class="text-gray-500 font-medium text-sm tracking-widest">LOADING 3D ASSETS...</span>
-                    </div>
-
+                <!-- 2D Character Viewer -->
+                <div class="flex-1 w-full bg-gradient-to-b from-transparent to-black/5 rounded-[20px] overflow-hidden relative" id="two-d-container">
+                    <img id="2d-character" src="images/character.png" alt="King Sejong" class="character-idle max-h-full max-w-full object-contain drop-shadow-xl transition-transform duration-300 hover:scale-105 cursor-pointer origin-bottom" style="max-height: 90%; padding-top: 10%;">
                 </div>
             </div>
 
@@ -201,25 +206,38 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const btnKing = document.getElementById('tab-king');
-            const btnHip = document.getElementById('tab-hip');
+            // const btnHip = document.getElementById('tab-hip');
             
             const chatTitle = document.getElementById('chat-title');
             const chatIcon = document.getElementById('chat-icon');
             const chatIconProfile = document.getElementById('chat-icon-ai-profile');
+            const characterImg = document.getElementById('2d-character');
+
+            // Handle character reaction event from chat.js
+            window.addEventListener('characterReact', () => {
+                if (characterImg) {
+                    characterImg.classList.remove('character-wave');
+                    // Trigger reflow to restart animation
+                    void characterImg.offsetWidth;
+                    characterImg.classList.add('character-wave');
+                }
+            });
 
             // Set active styles for tab
             const setActiveTab = (activeBtn, inactiveBtn) => {
                 activeBtn.classList.remove('text-gray-500', 'font-medium', 'hover:text-gray-800');
                 activeBtn.classList.add('bg-white', 'text-gray-900', 'font-bold', 'shadow-sm');
                 
-                inactiveBtn.classList.remove('bg-white', 'text-gray-900', 'font-bold', 'shadow-sm');
-                inactiveBtn.classList.add('text-gray-500', 'font-medium', 'hover:text-gray-800');
-                inactiveBtn.style.backgroundColor = 'transparent';
+                if (inactiveBtn) {
+                    inactiveBtn.classList.remove('bg-white', 'text-gray-900', 'font-bold', 'shadow-sm');
+                    inactiveBtn.classList.add('text-gray-500', 'font-medium', 'hover:text-gray-800');
+                    inactiveBtn.style.backgroundColor = 'transparent';
+                }
             };
 
             // Switch to King Sejong
             btnKing.addEventListener('click', () => {
-                setActiveTab(btnKing, btnHip);
+                // setActiveTab(btnKing, btnHip);
                 chatTitle.textContent = "세종대왕 (King Sejong)";
                 chatIcon.src = "images/icon01.png";
                 if(chatIconProfile) chatIconProfile.src = "images/icon01.png";
@@ -227,7 +245,8 @@
                 window.dispatchEvent(new CustomEvent('changeWorldModel', { detail: 'king' }));
             });
 
-            // Switch to Hip Sejong
+            // Switch to Hip Sejong (Removed)
+            /*
             btnHip.addEventListener('click', () => {
                 setActiveTab(btnHip, btnKing);
                 chatTitle.textContent = "힙세종 (Hip Sejong)";
@@ -235,6 +254,7 @@
                 if(chatIconProfile) chatIconProfile.src = "images/icon01.png";
                 window.dispatchEvent(new CustomEvent('changeWorldModel', { detail: 'hip' }));
             });
+            */
         });
     </script>
 </body>
