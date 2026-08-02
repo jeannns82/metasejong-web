@@ -47,122 +47,252 @@
     <style>
         body {
             font-family: 'Pretendard', sans-serif;
+            background: #f4f1ea;
+            color: #292d2c;
         }
 
-        /* Mongle-mongle Floating Blobs Background */
-        .blob-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: -1;
+        #works-list {
+            grid-auto-rows: 1fr;
+        }
+
+        .work-card-item,
+        .work-card {
+            height: 100%;
+        }
+
+        .work-card {
+            display: flex;
+            flex-direction: column;
             overflow: hidden;
-            background: #fdfdfd;
+            border: 1px solid #d8d5cd;
+            border-radius: 16px;
+            background: #faf9f5;
+            color: inherit;
+            text-decoration: none;
+            box-shadow: 0 2px 10px rgba(31, 47, 44, 0.035);
+            transition: transform 280ms ease, border-color 280ms ease, box-shadow 280ms ease;
         }
 
-        .blob {
+        .work-card:hover {
+            transform: translateY(-3px);
+            border-color: #aab7b2;
+            box-shadow: 0 12px 26px rgba(31, 47, 44, 0.09);
+        }
+
+        .work-card-visual {
+            aspect-ratio: 16 / 9;
+            flex: 0 0 auto;
+            overflow: hidden;
+            background: #e9e7df;
+        }
+
+        .work-card-visual-kcode {
+            background: #e8eeeb;
+        }
+
+        .work-card-image,
+        .work-card-visual-art {
+            display: block;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            object-fit: cover;
+            transition: transform 450ms cubic-bezier(0.2, 0.65, 0.3, 1);
+        }
+
+        .work-card-visual-art {
+            background: #e8eeeb;
+        }
+
+        .work-card-image-hangul {
+            object-position: center 24%;
+            transform: scale(1.03);
+        }
+
+        .work-card-image-goods {
+            object-position: center 50%;
+            filter: saturate(.94) contrast(.98);
+        }
+
+        .work-card-book-cover {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #e6e4dc;
+            transition: transform 450ms cubic-bezier(0.2, 0.65, 0.3, 1);
+        }
+
+        .work-card-book-lines {
             position: absolute;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.7;
-            animation: float 20s infinite ease-in-out alternate;
+            inset: 0;
+            background-image: linear-gradient(rgba(22, 78, 74, .11) 1px, transparent 1px), linear-gradient(90deg, rgba(22, 78, 74, .11) 1px, transparent 1px);
+            background-size: 64px 64px;
+            mask-image: linear-gradient(90deg, transparent 0, #000 30%, #000 100%);
         }
 
-        .blob-1 {
-            width: 70vw;
-            height: 70vw;
-            max-width: 800px;
-            max-height: 800px;
-            background: #e0f7fa;
-            /* Cyan pastel */
-            top: -10%;
-            left: -10%;
-            animation-duration: 25s;
-        }
-
-        .blob-2 {
-            width: 60vw;
-            height: 60vw;
-            max-width: 700px;
-            max-height: 700px;
-            background: #f3e8ff;
-            /* Purple pastel */
-            bottom: -10%;
-            right: -10%;
-            animation-duration: 28s;
-            animation-delay: -5s;
-        }
-
-        .blob-3 {
-            width: 50vw;
-            height: 50vw;
-            max-width: 600px;
-            max-height: 600px;
-            background: #e8f4f8;
-            /* Blue pastel */
-            top: 20%;
-            left: 30%;
-            animation-duration: 22s;
-            animation-delay: -10s;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translate(0, 0) scale(1);
-            }
-
-            33% {
-                transform: translate(8vw, -8vh) scale(1.1);
-            }
-
-            66% {
-                transform: translate(-4vw, 12vh) scale(0.9);
-            }
-
-            100% {
-                transform: translate(12vw, 4vh) scale(1.05);
-            }
-        }
-
-        /* Pixel Art Character Animation */
-        @keyframes bounce-hello {
-            0% {
-                transform: translateY(0);
-            }
-
-            100% {
-                transform: translateY(-12px);
-            }
-        }
-
-        .pixel-character {
+        .work-card-book-image,
+        .work-card-book-spine {
             position: absolute;
-            bottom: 25px;
-            right: 25px;
-            width: 40px;
-            height: auto;
-            image-rendering: pixelated;
-            /* Sharp pixel art */
-            z-index: 30;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            top: 50%;
+            height: 76%;
+            width: auto;
+            object-fit: contain;
+            box-shadow: 0 15px 28px rgba(42, 47, 44, .2);
         }
 
-        .group:hover .pixel-character {
-            opacity: 1;
-            animation: bounce-hello 0.35s cubic-bezier(0.28, 0.84, 0.42, 1) infinite alternate;
+        .work-card-book-image {
+            right: 20%;
+            transform: translateY(-50%) rotate(1deg);
+        }
+
+        .work-card-book-spine {
+            right: 16%;
+            opacity: .38;
+            transform: translateY(-50%) rotate(5deg);
+        }
+
+        .work-card-book-dot {
+            position: absolute;
+            border-radius: 999px;
+            background: #17605a;
+        }
+
+        .work-card-book-dot-one {
+            left: 10%;
+            bottom: 20%;
+            width: 82px;
+            height: 82px;
+            opacity: .12;
+        }
+
+        .work-card-book-dot-two {
+            left: 23%;
+            top: 17%;
+            width: 18px;
+            height: 18px;
+        }
+
+        .work-card-book-cover::after {
+            content: '';
+            position: absolute;
+            left: 9%;
+            top: 30%;
+            width: 30%;
+            height: 1px;
+            background: #17605a;
+        }
+
+        .work-card:hover .work-card-image,
+        .work-card:hover .work-card-visual-art,
+        .work-card:hover .work-card-book-cover {
+            transform: scale(1.018);
+        }
+
+        .work-card:hover .work-card-image-hangul {
+            transform: scale(1.048);
+        }
+
+        .work-card-info {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            min-height: 260px;
+            padding: 28px 30px 30px;
+        }
+
+        .work-card-meta {
+            display: flex;
+            min-height: 22px;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 15px;
+        }
+
+        .work-card-label {
+            color: #17605a;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            line-height: 1.5;
+        }
+
+        .work-card-arrow {
+            color: #17605a;
+            font-size: 17px;
+            line-height: 1;
+            transition: transform 280ms ease;
+        }
+
+        .work-card:hover .work-card-arrow {
+            transform: translate(2px, -2px);
+        }
+
+        .work-card-title {
+            min-height: 58px;
+            margin: 0 0 18px;
+            color: #252927;
+            font-size: clamp(20px, 1.8vw, 27px);
+            font-weight: 700;
+            letter-spacing: -0.035em;
+            line-height: 1.28;
+            overflow-wrap: anywhere;
+        }
+
+        .work-card-description {
+            margin: 0;
+            color: #424846;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.68;
+            word-break: keep-all;
+        }
+
+        .work-card-description-en {
+            margin-top: 10px;
+            color: #626966;
+            font-size: 13px;
+            line-height: 1.62;
+            word-break: normal;
+        }
+
+        @media (max-width: 767px) {
+            .work-card-book-image {
+                right: 17%;
+                height: 78%;
+            }
+
+            .work-card-book-spine {
+                right: 12%;
+                height: 78%;
+            }
+
+            .work-card-book-dot-one {
+                left: 7%;
+                bottom: 15%;
+                width: 54px;
+                height: 54px;
+            }
+
+            .work-card-info {
+                min-height: 250px;
+                padding: 24px 22px 26px;
+            }
+
+            .work-card-title {
+                min-height: 0;
+                margin-bottom: 16px;
+                font-size: 21px;
+            }
         }
     </style>
 </head>
 
-<body class="bg-transparent">
-    <div class="blob-container">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-    </div>
+<body>
 
     <!-- Header / Navigation -->
     <header class="fixed top-0 left-0 w-full bg-white/90 backdrop-blur z-50 border-b border-gray-100">
@@ -190,16 +320,16 @@
     </header>
 
     <!-- Works Section -->
-    <section id="works" class="py-20 min-h-screen pt-[140px] relative overflow-hidden">
+    <section id="works" class="pb-20 min-h-screen pt-[118px] relative overflow-hidden">
 
 
-        <div class="w-full max-w-[1600px] mx-auto px-10 md:px-20 relative z-10">
+        <div class="w-full max-w-[1360px] mx-auto px-5 sm:px-8 md:px-12 relative z-10">
             <h2 class="text-3xl font-montserrat font-bold mb-3.5 text-center tracking-tight text-gray-800 uppercase">
                 WORKS</h2>
             <div
-                class="w-full h-[1px] bg-gradient-to-r from-transparent via-gray-400 to-transparent opacity-75 shadow-[0_1px_3px_rgba(0,0,0,0.1)] mb-20">
+                class="w-full h-px bg-[#cfccc4] mt-4 mb-10 md:mb-12">
             </div>
-            <div id="works-list" class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-32">
+            <div id="works-list" class="grid grid-cols-1 md:grid-cols-2 gap-7 lg:gap-9">
                 <!-- Dynamic Content via JS -->
             </div>
         </div>

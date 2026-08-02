@@ -31,91 +31,63 @@ function renderWorks() {
 
     worksData.forEach(item => {
         const projectDiv = document.createElement('div');
-        projectDiv.className = 'flex flex-col gap-6 group cursor-default';
+        projectDiv.className = 'work-card-item';
 
-        // 링크가 외부 주소인지 확인하여 target="_blank" 여부 결정
         const isExternal = item.link && item.link.startsWith('http');
         const targetAttr = isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
-
-        const isWip = !item.link;
-
-        const wrapperStart = item.link ? `<a href="${item.link}"${targetAttr} class="block border-none">` : `<div class="block cursor-pointer relative">`;
+        const wrapperStart = item.link
+            ? `<a href="${item.link}"${targetAttr} class="work-card group">`
+            : `<div class="work-card group">`;
         const wrapperEnd = item.link ? `</a>` : `</div>`;
 
-        projectDiv.className = isWip ? 'flex flex-col group' : 'flex flex-col group cursor-pointer';
+        const visualContent = item.externalService ? `
+                    <svg class="work-card-visual-art" viewBox="0 0 720 420" preserveAspectRatio="xMidYMid slice" role="img" aria-label="한글의 소리와 구조가 색과 형태로 생성되는 추상 그래픽">
+                        <rect width="720" height="420" fill="#e8eeeb"/>
+                        <g opacity=".38" stroke="#9baea9" stroke-width="1">
+                            <path d="M0 72h720M0 210h720M0 348h720"/><path d="M116 0v420M360 0v420M604 0v420"/>
+                        </g>
+                        <g fill="none" stroke="#164e4a" stroke-width="7">
+                            <path d="M-22 332L112 198h128v-120"/>
+                            <circle cx="328" cy="212" r="92"/>
+                            <path d="M415 184h104v-92h126"/>
+                            <path d="M434 318c58-78 127-91 226-22"/>
+                            <path d="M86 64h82v82H86z"/>
+                        </g>
+                        <g fill="#164e4a"><circle cx="112" cy="198" r="11"/><circle cx="240" cy="78" r="11"/><circle cx="519" cy="92" r="11"/><circle cx="660" cy="296" r="11"/></g>
+                        <g><rect x="542" y="30" width="48" height="48" rx="5" fill="#70b7c6"/><rect x="600" y="30" width="48" height="48" rx="5" fill="#df8755"/><rect x="658" y="30" width="48" height="48" rx="5" fill="#d8c66f"/></g>
+                        <path d="M0 388h174m314-274h49m-249 98h-45" stroke="#738c87" stroke-width="3" stroke-dasharray="8 10"/>
+                        <path d="M270 265l58-106 58 106z" fill="#e8eeeb" stroke="#164e4a" stroke-width="7"/>
+                    </svg>
+        ` : item.visualType === 'book' ? `
+                    <div class="work-card-book-cover" role="img" aria-label="AI 훈민정음 책 표지를 활용한 편집형 북 커버">
+                        <div class="work-card-book-lines" aria-hidden="true"></div>
+                        <div class="work-card-book-dot work-card-book-dot-one" aria-hidden="true"></div>
+                        <div class="work-card-book-dot work-card-book-dot-two" aria-hidden="true"></div>
+                        <img src="${item.image}" alt="AI 훈민정음 책 표지" class="work-card-book-spine" aria-hidden="true">
+                        <img src="${item.image}" alt="AI 훈민정음 책 표지" class="work-card-book-image">
+                    </div>
+        ` : `
+                    <img src="${item.image}" alt="${item.title}" class="work-card-image${item.visualClass ? ` ${item.visualClass}` : ''}">
+        `;
 
-        const wipOverlay = isWip ? `
-            <div class="absolute top-4 right-4 z-40 pointer-events-none">
-                <div class="px-3 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg flex items-center gap-2 transform transition-transform duration-300 group-hover:scale-105">
-                    <div class="w-1.5 h-1.5 rounded-full bg-white/90 animate-pulse"></div>
-                    <span class="text-white drop-shadow-md text-[11px] font-bold tracking-widest">작업 중</span>
-                </div>
-            </div>
-        ` : '';
+        const linkArrow = item.link ? `<span class="work-card-arrow" aria-hidden="true">↗</span>` : '';
 
         projectDiv.innerHTML = `
             ${wrapperStart}
-                <div class="w-full bg-transparent overflow-hidden relative tilt-container rounded-[20px] group-hover:shadow-[0_10px_40px_rgba(0,0,0,0.15)] transition-shadow duration-700" style="perspective: 1000px;">
-                    ${wipOverlay}
-                    <!-- Foreground Transparent Thumbnail -->
-                    <img src="${item.image}" alt="${item.title}" class="w-full aspect-video object-cover relative z-10 tilt-img" style="transform: scale(1.02) rotateX(0deg) rotateY(0deg); transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);">
-                    <!-- Gradient Overlay (Fade in on hover) -->
-                    <div class="absolute inset-0 z-20 opacity-0 bg-gradient-to-tr from-[#22d3ee] via-[#c084fc] to-[#60a5fa] tilt-overlay pointer-events-none mix-blend-color" style="transform: scale(1.02) rotateX(0deg) rotateY(0deg); transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.6s ease-in-out;"></div>
-                    <!-- Pixel Art Character (Animated on hover) -->
-                    <img src="images/pixel_sejong.png" alt="Pixel Sejong" class="pixel-character">
+                <div class="work-card-visual${item.externalService ? ' work-card-visual-kcode' : ''}">
+                    ${visualContent}
                 </div>
-                <div class="text-center mt-6 px-4">
-                    <h3 class="text-sm font-bold tracking-[0.15em] text-gray-900 uppercase mb-2 group-hover:text-gray-600 transition-colors">${item.title}</h3>
-                    <p class="text-[13px] text-gray-500 font-light leading-relaxed line-clamp-2">${item.description}</p>
+                <div class="work-card-info">
+                    <div class="work-card-meta">
+                        <span class="work-card-label">${item.type}</span>
+                        ${linkArrow}
+                    </div>
+                    <h3 class="work-card-title">${item.title}</h3>
+                    <p class="work-card-description work-card-description-ko">${item.description}</p>
+                    <p class="work-card-description work-card-description-en" lang="en">${item.descriptionEn}</p>
                 </div>
             ${wrapperEnd}
         `;
-
-        const containerElement = projectDiv.querySelector('.tilt-container');
-        const imgElement = projectDiv.querySelector('.tilt-img');
-        const overlayElement = projectDiv.querySelector('.tilt-overlay');
-
-        if (containerElement && imgElement && overlayElement) {
-            containerElement.addEventListener('mousemove', (e) => {
-                const rect = containerElement.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-
-                // Max rotation: 3 degrees
-                const rotateX = ((y - centerY) / centerY) * -3;
-                const rotateY = ((x - centerX) / centerX) * 3;
-
-                // Adjust tilt
-                const transformValue = `scale(1.02) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                imgElement.style.transform = transformValue;
-                imgElement.style.transition = 'transform 0.1s ease-out';
-
-                overlayElement.style.transform = transformValue;
-                overlayElement.style.transition = 'transform 0.1s ease-out';
-            });
-
-            containerElement.addEventListener('mouseleave', () => {
-                // Return to origin and clear overlay
-                const transformValue = `scale(1.02) rotateX(0deg) rotateY(0deg)`;
-
-                imgElement.style.transform = transformValue;
-                imgElement.style.transition = 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-
-                overlayElement.style.transform = transformValue;
-                overlayElement.style.opacity = '0';
-                overlayElement.style.transition = 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.6s ease-in-out';
-            });
-
-            containerElement.addEventListener('mouseenter', () => {
-                // Fade in gradient overlay
-                overlayElement.style.opacity = '1';
-                overlayElement.style.transition = 'transform 0.3s ease-out, opacity 0.6s ease-in-out';
-                imgElement.style.transition = 'transform 0.3s ease-out';
-            });
-        }
 
         worksList.appendChild(projectDiv);
     });
@@ -142,64 +114,53 @@ function renderPublication() {
     const pubList = document.getElementById('publication-list');
     if (!pubList) return;
 
-    publicationData.forEach((item, index) => {
-        const card = document.createElement('div');
-        // Layout: Vertical on mobile, Horizontal on desktop
-        // Using a card UI with background, padding, squared corners, and shadow.
-        // Added entrance animation (animate-fade-in-up) and lift effect (-translate-y-2) on hover
-        card.className = 'flex flex-col md:flex-row gap-6 md:gap-10 p-6 md:p-8 mb-8 bg-white border border-gray-100 rounded-none shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1.5 group opacity-0 translate-y-4';
+    const priorityTitles = ['AI 훈민정음', '안녕, 낯선한글'];
+    const publications = [...publicationData].sort((a, b) => {
+        const aPriority = priorityTitles.indexOf(a.title);
+        const bPriority = priorityTitles.indexOf(b.title);
+        if (aPriority !== -1 || bPriority !== -1) {
+            if (aPriority === -1) return 1;
+            if (bPriority === -1) return -1;
+            return aPriority - bPriority;
+        }
+        return publicationData.indexOf(a) - publicationData.indexOf(b);
+    });
 
-        // Add animation delay style for staggered effect
-        card.style.animation = `fadeInUp 0.8s ease-out forwards ${index * 0.15}s`;
+    publications.forEach((item, index) => {
+        const entry = document.createElement('article');
+        entry.className = `publication-entry${index % 2 === 1 ? ' is-reversed' : ''}`;
 
-        // Tags Generation
-        const tagsHtml = item.tags.map(tag =>
-            `<span class="inline-block px-3 py-1 rounded-full border border-gray-300 text-xs text-gray-500 font-medium">${tag}</span>`
-        ).join('');
-
+        const fullTitle = item.subtitle ? `${item.title} - ${item.subtitle}` : item.title;
+        const cover = `<img src="${item.image}" alt="${fullTitle}" class="publication-cover" loading="lazy" decoding="async">`;
         const imageContent = item.link
-            ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="block w-full h-full"><img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"></a>`
-            : `<img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">`;
+            ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="publication-cover-link" aria-label="${fullTitle} 출판물 보기">${cover}</a>`
+            : `<div class="publication-cover-link">${cover}</div>`;
+        const linkContent = item.link
+            ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="publication-link">View publication <span class="publication-link-arrow" aria-hidden="true">↗</span></a>`
+            : '';
+        const tags = item.tags.map(tag => `<span>${tag}</span>`).join('');
+        const year = item.date ? item.date.slice(0, 4) : '';
 
-        const titleContent = item.link
-            ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="hover:underline">${item.title}</a>`
-            : item.title;
-
-        card.innerHTML = `
-            <!-- Image Area: Fixed width on desktop, full on mobile. Aspect ratio 3/4 -->
-            <div class="w-full md:w-[240px] flex-shrink-0">
-                <div class="aspect-[3/4] w-full h-full overflow-hidden rounded-none shadow-sm bg-gray-100 relative">
-                    ${imageContent}
+        entry.innerHTML = `
+            <div class="publication-visual">${imageContent}</div>
+            <div class="publication-info">
+                <p class="publication-book-label">BOOK${year ? ` · ${year}` : ''}</p>
+                <div class="publication-title-group">
+                    <h2 class="publication-title-main">${item.title}</h2>
+                    ${item.subtitle ? `<p class="publication-title-sub">${item.subtitle}</p>` : ''}
                 </div>
-            </div>
-
-            <!-- Content Area -->
-            <div class="flex-1 flex flex-col pt-1 md:pt-2">
-                <!-- Top Line: Title & Price -->
-                <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-2 gap-1">
-                    <h3 class="text-2xl font-bold text-gray-900 tracking-tight leading-tight">${titleContent}</h3>
-                    <span class="text-lg font-bold text-gray-800 md:text-right flex-shrink-0">${item.price}</span>
-                </div>
-
-                <!-- Meta Info -->
-                <div class="text-sm text-gray-500 mb-5 font-medium">
-                    <span>${item.author} · ${item.publisher}</span>
-                    <span class="mx-2 text-gray-300">|</span>
-                    <span>${item.date}</span>
-                </div>
-
-                <!-- Tags -->
-                <div class="flex flex-wrap gap-2 mb-5">
-                    ${tagsHtml}
-                </div>
-
-                <!-- Summary -->
-                <div class="text-gray-700 leading-[1.6] text-[15px] md:text-base font-light text-justify break-keep">
-                    ${item.summary}
-                </div>
+                <p class="publication-summary">${item.summary}</p>
+                <dl class="publication-meta">
+                    <div><dt>Author</dt><dd>${item.author}</dd></div>
+                    <div><dt>Publisher</dt><dd>${item.publisher}</dd></div>
+                    <div><dt>Published</dt><dd>${item.date}</dd></div>
+                    <div><dt>Price</dt><dd>${item.price}</dd></div>
+                </dl>
+                <div class="publication-tags">${tags}</div>
+                ${linkContent}
             </div>
         `;
-        pubList.appendChild(card);
+        pubList.appendChild(entry);
     });
 }
 

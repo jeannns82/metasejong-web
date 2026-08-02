@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work Detail - METASEJONG</title>
+    <title>메타세종 굿즈 - METASEJONG</title>
 
     <!-- Design System -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
@@ -31,19 +31,301 @@
     </script>
     <style>
         body {
-            font-family: 'Pretendard', sans-serif;
+            margin: 0;
+            background: #f4f1ea;
+            color: #292d2c;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        }
+
+        .goods-detail {
+            padding: 118px 0 96px;
+        }
+
+        .goods-container {
+            width: min(1120px, calc(100% - 80px));
+            margin: 0 auto;
+        }
+
+        .goods-intro-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+            gap: 48px;
+            align-items: center;
+        }
+
+        .goods-label {
+            margin: 0 0 18px;
+            color: #17605a;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .2em;
+        }
+
+        .goods-title-ko,
+        .goods-title-en {
+            margin: 0;
+            overflow-wrap: anywhere;
+        }
+
+        .goods-title-ko {
+            color: #222624;
+            font-size: clamp(36px, 4vw, 52px);
+            font-weight: 700;
+            letter-spacing: -.055em;
+            line-height: 1.1;
+        }
+
+        .goods-title-en {
+            margin-top: 9px;
+            color: #626966;
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(16px, 2vw, 23px);
+            font-weight: 700;
+            letter-spacing: -.02em;
+        }
+
+        .goods-hero {
+            margin: 0;
+            overflow: hidden;
+            aspect-ratio: 4 / 3;
+            max-height: 500px;
+            border: 1px solid #d8d5cd;
+            border-radius: 14px;
+            background: #eeece5;
+        }
+
+        .goods-hero img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 52%;
+        }
+
+        .goods-gallery-heading {
+            margin: 0;
+            color: #17605a;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .18em;
+        }
+
+        .goods-intro-copy {
+            max-width: 500px;
+            margin-top: 28px;
+        }
+
+        .goods-intro-copy p {
+            margin: 0;
+            color: #3f4542;
+            font-size: 16px;
+            line-height: 1.72;
+            word-break: keep-all;
+        }
+
+        .goods-intro-copy p + p {
+            margin-top: 12px;
+            color: #626966;
+            font-size: 15px;
+            line-height: 1.72;
+        }
+
+        .goods-intro-back {
+            margin-top: 32px;
+        }
+
+        .goods-section-rule {
+            height: 1px;
+            margin: 88px 0 0;
+            background: #cfccc4;
+        }
+
+        .goods-gallery-section {
+            padding-top: 64px;
+        }
+
+        .goods-gallery-heading {
+            margin-bottom: 28px;
+        }
+
+        .goods-featured-gallery {
+            display: grid;
+            grid-template-columns: minmax(0, 1.55fr) minmax(0, .75fr);
+            grid-template-rows: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+            height: 520px;
+            margin-bottom: 22px;
+        }
+
+        .goods-featured-gallery .goods-gallery-item:first-child {
+            grid-row: 1 / 3;
+        }
+
+        .goods-featured-gallery .goods-gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .goods-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .goods-gallery-item {
+            display: flex;
+            margin: 0;
+            min-width: 0;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 12px;
+            background: #ebe9e2;
+        }
+
+        .goods-gallery-item.is-wide {
+            grid-column: 1 / -1;
+        }
+
+        .goods-gallery .goods-gallery-item:not(.is-wide) {
+            aspect-ratio: 4 / 3;
+        }
+
+        .goods-gallery-item img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 820px;
+            object-fit: contain;
+        }
+
+        .goods-gallery .goods-gallery-item:not(.is-wide) img {
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .goods-gallery .goods-gallery-item.is-contained img {
+            height: 100%;
+            padding: 24px;
+            object-fit: contain;
+        }
+
+        .goods-back {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 64px;
+            color: #17605a;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-decoration: none;
+            transition: transform 220ms ease, color 220ms ease;
+        }
+
+        .goods-back:hover {
+            color: #103f3b;
+            transform: translateX(-3px);
+        }
+
+        @media (max-width: 1023px) {
+            .goods-container {
+                width: min(1120px, calc(100% - 56px));
+            }
+
+            .goods-intro-layout {
+                gap: 36px;
+            }
+
+            .goods-featured-gallery {
+                height: 440px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .goods-detail {
+                padding: 102px 0 72px;
+            }
+
+            .goods-container {
+                width: min(100% - 40px, 1120px);
+            }
+
+            .goods-intro-layout {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .goods-hero {
+                grid-row: 2;
+                aspect-ratio: 4 / 3;
+                border-radius: 12px;
+            }
+
+            .goods-project-header {
+                grid-row: 1;
+            }
+
+            .goods-title-ko {
+                font-size: clamp(30px, 9vw, 36px);
+            }
+
+            .goods-intro-copy p {
+                font-size: 15px;
+                line-height: 1.75;
+            }
+
+            .goods-intro-copy p + p {
+                font-size: 14px;
+            }
+
+            .goods-intro-back {
+                margin-top: 24px;
+            }
+
+            .goods-section-rule {
+                margin-top: 64px;
+            }
+
+            .goods-gallery-section {
+                padding-top: 48px;
+            }
+
+            .goods-featured-gallery,
+            .goods-gallery {
+                grid-template-columns: 1fr;
+                grid-template-rows: none;
+                gap: 16px;
+                height: auto;
+            }
+
+            .goods-featured-gallery {
+                margin-bottom: 16px;
+            }
+
+            .goods-featured-gallery .goods-gallery-item,
+            .goods-featured-gallery .goods-gallery-item:first-child {
+                grid-row: auto;
+                aspect-ratio: 4 / 3;
+            }
+
+            .goods-gallery-item,
+            .goods-gallery-item.is-wide {
+                grid-column: auto;
+                border-radius: 10px;
+            }
+
+            .goods-back {
+                margin-top: 48px;
+            }
         }
     </style>
-
-    <!-- React & Babel for In-browser Compilation -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 
-<body
-    class="bg-gradient-to-b from-[#e0f7fa] via-[#f3e8ff] to-[#e0e7ff] text-gray-900 selection:bg-violet-600 selection:text-white min-h-screen">
-
+<body>
     <!-- Header / Navigation -->
     <header class="fixed top-0 left-0 w-full bg-white/90 backdrop-blur z-50 border-b border-gray-100">
         <div class="max-w-[1200px] mx-auto px-5 h-[60px] flex items-center justify-between">
@@ -52,25 +334,48 @@
             <nav class="hidden md:block">
                 <ul class="flex gap-6">
                     <li><a href="index.html"
-                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Introduce</a>
-                    </li>
+                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Introduce</a></li>
                     <li><a href="works.html"
-                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Works</a>
-                    </li>
-
+                            class="text-sm text-gray-800 font-semibold hover:text-gray-800 transition-colors">Works</a></li>
                     <li><a href="publication.html"
-                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Publication</a>
-                    </li>
+                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Publication</a></li>
                     <li><a href="contact.html"
-                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Contact</a>
-                    </li>
+                            class="text-sm text-gray-500 hover:text-gray-800 hover:font-semibold transition-colors">Contact</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- React Root -->
-    <div id="root"></div>
+    <main class="goods-detail">
+        <div class="goods-container">
+            <section class="goods-intro-layout" aria-labelledby="goods-title">
+                <header class="goods-project-header">
+                    <p class="goods-label">ART GOODS</p>
+                    <h1 id="goods-title" class="goods-title-ko">메타세종 굿즈</h1>
+                    <p class="goods-title-en" lang="en">MetaSejong Goods</p>
+                    <div class="goods-intro-copy">
+                        <p>한글의 고유한 매력과 세종의 세계관을 담은 감각적인 굿즈 컬렉션</p>
+                        <p lang="en">An art goods collection that captures the distinctive character of Hangul and the world of MetaSejong.</p>
+                    </div>
+                    <a class="goods-back goods-intro-back" href="works.html">← Works</a>
+                </header>
+
+                <figure class="goods-hero">
+                    <img src="images/metasejong_world_goods.jpg" alt="피규어와 한글의 색 노트를 포함한 메타세종 대표 굿즈">
+                </figure>
+            </section>
+
+            <div class="goods-section-rule"></div>
+
+            <section class="goods-gallery-section" aria-labelledby="goods-gallery-title">
+                <h2 id="goods-gallery-title" class="goods-gallery-heading">COLLECTION</h2>
+                <div id="goods-featured-gallery" class="goods-featured-gallery"></div>
+                <div id="goods-gallery" class="goods-gallery"></div>
+            </section>
+
+            <a class="goods-back" href="works.html">← Works</a>
+        </div>
+    </main>
 
     <!-- Footer -->
     <footer class="py-10 text-center border-t border-gray-100 text-gray-500 text-sm">
@@ -79,23 +384,18 @@
         </div>
     </footer>
 
-    <!-- React Component Script -->
-    <script type="text/babel">
-        // 웹사이트 로딩 속도 최적화를 위해 비교적 작은 크기의 원본 및 리사이즈된 이미지를 활용
-        const images = [
-            "images/works/01.jpg",
-            "images/works/02.jpg",
-            "images/works/03.jpg",
+    <script>
+        const goodsImages = [
+            "images/works/L1010707-1.jpg",
+            "images/works/L1010714-1_1000.jpg",
+            "images/works/L1010732-1_1000.jpg",
             "images/works/L1000678-4_1000.jpg",
             "images/works/L1010677-1.jpg",
             "images/works/L1010689-1_500.jpg",
             "images/works/L1010690-1_1000.jpg",
             "images/works/L1010692-1.jpg",
-            "images/works/L1010707-1.jpg",
-            "images/works/L1010714-1_1000.jpg",
             "images/works/L1010719-1.jpg",
             "images/works/L1010727-1_1000.jpg",
-            "images/works/L1010732-1_1000.jpg",
             "images/works/L1010742-1_500.jpg",
             "images/works/L1010745-1_500.jpg",
             "images/works/L1020503-1_500.jpg",
@@ -112,36 +412,56 @@
             "images/works/art_toy_full_500.jpg",
             "images/works/hello_sejong_badge_kr.jpg",
             "images/works/figure_case_side.jpg",
-            "images/works/hangeul_color_note_kr.jpg"
+            "images/works/hangeul_color_note_kr.jpg",
+            "images/works/01.jpg",
+            "images/works/02.jpg",
+            "images/works/03.jpg"
         ];
 
-        function WorkDetailPage() {
-            return (
-                <div className="pt-24 pb-24 md:pb-32 min-h-screen">
-                    <div className="max-w-[1400px] mx-auto px-5 md:px-10">
-                        {/* Masonry Image Layout: Tailwind 'columns' 사용 (최대 3열 배치를 통해 이미지 크기 확대) */}
-                        <div className="columns-1 sm:columns-2 md:columns-3 gap-6 md:gap-8 space-y-6 md:space-y-8">
-                            {images.map((src, index) => (
-                                <div key={index} className="break-inside-avoid relative group overflow-hidden bg-white/50 border-[0.5pt] border-white/20">
-                                    <img 
-                                        src={src} 
-                                        alt={`Work Gallery ${index + 1}`} 
-                                        className="w-full h-auto object-cover transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.03]"
-                                        loading="lazy"
-                                        decoding="async"
-                                    />
-                                    {/* Hover interaction (Subtle fade) */}
-                                    <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            );
-        }
+        const wideImages = new Set([
+            "images/works/L1010692-1.jpg",
+            "images/works/L1010719-1.jpg",
+            "images/works/L1020582-1.jpg",
+            "images/works/L1020593-1.jpg",
+            "images/works/hello_sejong_badge.jpg",
+            "images/works/hello_sejong_badge_kr.jpg"
+        ]);
+        const containedImages = new Set([
+            "images/works/L1010689-1_500.jpg",
+            "images/works/L1010690-1_1000.jpg",
+            "images/works/L1010727-1_1000.jpg",
+            "images/works/L1010742-1_500.jpg",
+            "images/works/L1010745-1_500.jpg",
+            "images/works/L1020503-1_500.jpg",
+            "images/works/L1020504-1_500.jpg",
+            "images/works/L1020509-1_500.jpg",
+            "images/works/L1020576-1_500x700.jpg",
+            "images/works/hangeul_color_note.jpg",
+            "images/works/sejong_figure_box.jpg",
+            "images/works/sejong_figure_front.jpg",
+            "images/works/art_toy_full_500.jpg",
+            "images/works/figure_case_side.jpg",
+            "images/works/hangeul_color_note_kr.jpg"
+        ]);
+        const featuredGallery = document.getElementById('goods-featured-gallery');
+        const gallery = document.getElementById('goods-gallery');
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<WorkDetailPage />);
+        goodsImages.forEach((src, index) => {
+            const figure = document.createElement('figure');
+            const isFeatured = index < 3;
+            const isWide = !isFeatured && wideImages.has(src);
+            const isContained = !isFeatured && containedImages.has(src);
+            figure.className = `goods-gallery-item${isWide ? ' is-wide' : ''}${isContained ? ' is-contained' : ''}`;
+
+            const image = document.createElement('img');
+            image.src = src;
+            image.alt = `메타세종 굿즈 아카이브 ${index + 1}`;
+            image.loading = 'lazy';
+            image.decoding = 'async';
+
+            figure.appendChild(image);
+            (isFeatured ? featuredGallery : gallery).appendChild(figure);
+        });
     </script>
 </body>
 

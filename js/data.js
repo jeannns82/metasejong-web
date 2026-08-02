@@ -1,29 +1,40 @@
 const worksData = [
     {
-        title: "메타세종 월드 굿즈 (METASEJONG World Goods)",
+        title: "The Hangul Colors",
+        description: "한글의 소리와 구조를 고유한 색으로 해석하는 컬러 아트 프로젝트입니다.",
+        descriptionEn: "A color art project that interprets the sound and structure of Hangul through a distinctive color system.",
+        type: "COLOR ART PROJECT",
+        image: "images/works/hangeul_color_note_kr.jpg",
+        visualClass: "work-card-image-hangul"
+    },
+    {
+        title: "K-Code Generator",
+        description: "한글의 소리와 구조를 색과 형태로 확장하는 시각언어 생성 도구입니다.",
+        descriptionEn: "A visual language generator that transforms Hangul sound and structure into color and form.",
+        type: "DIGITAL GENERATOR",
+        link: "https://hangulart.app",
+        image: null,
+        externalService: true
+    },
+    {
+        title: "메타세종 굿즈(MetaSejong Goods)",
         description: "한글의 고유한 매력과 세종의 세계관을 담은 감각적인 굿즈 컬렉션",
-        image: "images/metasejong_t.png",
+        descriptionEn: "An art goods collection that captures the distinctive character of Hangul and the world of MetaSejong.",
+        type: "ART GOODS",
+        image: "images/metasejong_world_goods.jpg",
+        visualClass: "work-card-image-goods",
         hoverImage: "images/metasejong_world_goods.jpg",
         link: "works_detail.html"
     },
     {
-        title: "경기콘텐츠진흥원 ‘크라우드 펀딩 지원사업’ 선정 및 진행",
+        title: "텀블벅 크라우드 펀딩(Tumblbug Crowdfunding)",
         description: "텀블벅 목표 달성률 227%를 기록한 <AI 훈민정음> 프로젝트",
-        image: "images/tumblbug_t.png",
+        descriptionEn: "The AI Hunminjeongeum project, funded at 227% of its goal on Tumblbug.",
+        type: "CROWDFUNDING",
+        image: "images/ai_hunminjeongeum.jpg",
+        visualType: "book",
         hoverImage: "images/works_02.png",
         link: "https://tumblbug.com/metasejong"
-    },
-    {
-        title: "힙한글 프로젝트",
-        description: "한글, 일상을 예술로 만들다 (Turn your Hangul into wearable art)",
-        image: "images/hiphangul_t.png",
-        hoverImage: "images/metasejong_world_goods.jpg"
-    },
-    {
-        title: "훈밈정음 미디어아트 프로젝트",
-        description: "훈민정음의 제자원리를 색채 체계와 합자 알고리즘으로 구현하여, 한글의 문화유전자를 시각적 시스템으로 재구축한 미디어 아트",
-        image: "images/hunmimjeongeum_t.png",
-        hoverImage: "images/meeting_large.jpeg"
     }
 ];
 
@@ -58,7 +69,8 @@ const publicationData = [
         link: "https://product.kyobobook.co.kr/detail/S000217476028"
     },
     {
-        title: "모두가 잘 살기를 선택한 나라 - 핀란드의 정치제도와 미디어 리터러시",
+        title: "모두가 잘 살기를 선택한 나라",
+        subtitle: "핀란드의 정치제도와 미디어 리터러시",
         author: "서정호",
         publisher: "메타세종",
         date: "2025.11.05",
@@ -69,7 +81,8 @@ const publicationData = [
         link: "https://ebook-product.kyobobook.co.kr/dig/epd/ebook/E000012167267"
     },
     {
-        title: "백남준 영상의 기술 미학 - 인공지능 시대의 보다 인간적인 기술 활용",
+        title: "백남준 영상의 기술 미학",
+        subtitle: "인공지능 시대의 보다 인간적인 기술 활용",
         author: "서정호",
         publisher: "메타세종",
         date: "2025.11.05",
@@ -80,7 +93,8 @@ const publicationData = [
         link: "https://ebook-product.kyobobook.co.kr/dig/epd/ebook/E000012167294"
     },
     {
-        title: "미디어 시프트 2026 - 변화의 신호를 읽다",
+        title: "미디어 시프트 2026",
+        subtitle: "변화의 신호를 읽다",
         author: "서정호",
         publisher: "메타세종",
         date: "2026.03.03",
@@ -91,7 +105,8 @@ const publicationData = [
         link: "https://ebook-product.kyobobook.co.kr/dig/epd/ebook/E000012649122"
     },
     {
-        title: "인공지능 뉴스룸의 진화 - 생성형 AI와 저널리즘의 교차점",
+        title: "인공지능 뉴스룸의 진화",
+        subtitle: "생성형 AI와 저널리즘의 교차점",
         author: "서정호",
         publisher: "메타세종",
         date: "2026.03.03",
