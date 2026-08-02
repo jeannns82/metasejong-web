@@ -394,10 +394,7 @@ body.poster-theme::before {
 }
 
 .poster-home #history {
-    background:
-        radial-gradient(circle at 12% 12%, rgba(50, 104, 103, .07) 0%, transparent 38%),
-        radial-gradient(circle at 88% 18%, rgba(230, 111, 75, .08) 0%, transparent 40%),
-        linear-gradient(135deg, #f6f1e9 0%, #fffdf8 52%, #f1e6da 100%);
+    background: transparent;
 }
 
 .poster-home #history > div > div:nth-of-type(1) {
