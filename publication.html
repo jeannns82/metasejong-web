@@ -355,6 +355,7 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="css/page-intro.css">
 </head>
 
 <body>
@@ -385,14 +386,17 @@
     </header>
 
     <!-- Publication Section -->
-    <main id="publication" class="publication-page">
-        <div class="publication-container">
-            <header class="publication-intro">
-                <p class="publication-kicker">PUBLICATION</p>
-                <h1 class="publication-heading">한글과 기술, 문화에 관한 메타세종의 출판 기록</h1>
-                <p class="publication-subheading" lang="en">Publications exploring Hangul, technology, and culture.</p>
-            </header>
-            <div class="publication-rule"></div>
+    <main id="publication" class="publication-page page-standard">
+        <div class="publication-container page-shell">
+            <section class="page-intro page-intro--publication">
+                <p class="page-intro__label">02 / PUBLICATION</p>
+                <h1 class="page-intro__title">한글과 기술, 문화에 관한 메타세종의 <span class="page-intro__accent">출판 기록</span></h1>
+                <p class="page-intro__description" lang="en">Publications exploring Hangul, technology, and culture.</p>
+                <div class="page-intro__divider" aria-hidden="true">
+                    <span class="page-intro__divider-accent"></span>
+                    <span class="page-intro__divider-line"></span>
+                </div>
+            </section>
             <div id="publication-list" class="publication-list">
                 <!-- Dynamic Content via JS -->
             </div>
