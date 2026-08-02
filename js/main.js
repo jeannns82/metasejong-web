@@ -15,7 +15,8 @@ function highlightActiveNav() {
         const href = link.getAttribute('href');
         // Update active state with Tailwind classes
         // Check if href matches the end of the path
-        if (currentPath.endsWith(href) || (href === 'index.html' && (currentPath === '/' || currentPath.endsWith('/')))) {
+        const isPosterHome = document.body.classList.contains('poster-home');
+        if (!isPosterHome && (currentPath.endsWith(href) || (href === 'index.html' && (currentPath === '/' || currentPath.endsWith('/'))))) {
             link.classList.add('text-gray-800', 'font-semibold');
             link.classList.remove('text-gray-500');
         } else {
@@ -42,21 +43,21 @@ function renderWorks() {
 
         const visualContent = item.externalService ? `
                     <svg class="work-card-visual-art" viewBox="0 0 720 420" preserveAspectRatio="xMidYMid slice" role="img" aria-label="한글의 소리와 구조가 색과 형태로 생성되는 추상 그래픽">
-                        <rect width="720" height="420" fill="#e8eeeb"/>
-                        <g opacity=".38" stroke="#9baea9" stroke-width="1">
+                        <rect width="720" height="420" fill="#e8dfd1"/>
+                        <g opacity=".34" stroke="#fff9e9" stroke-width="1">
                             <path d="M0 72h720M0 210h720M0 348h720"/><path d="M116 0v420M360 0v420M604 0v420"/>
                         </g>
-                        <g fill="none" stroke="#164e4a" stroke-width="7">
+                        <g fill="none" stroke="#326867" stroke-width="7">
                             <path d="M-22 332L112 198h128v-120"/>
                             <circle cx="328" cy="212" r="92"/>
                             <path d="M415 184h104v-92h126"/>
                             <path d="M434 318c58-78 127-91 226-22"/>
                             <path d="M86 64h82v82H86z"/>
                         </g>
-                        <g fill="#164e4a"><circle cx="112" cy="198" r="11"/><circle cx="240" cy="78" r="11"/><circle cx="519" cy="92" r="11"/><circle cx="660" cy="296" r="11"/></g>
-                        <g><rect x="542" y="30" width="48" height="48" rx="5" fill="#70b7c6"/><rect x="600" y="30" width="48" height="48" rx="5" fill="#df8755"/><rect x="658" y="30" width="48" height="48" rx="5" fill="#d8c66f"/></g>
-                        <path d="M0 388h174m314-274h49m-249 98h-45" stroke="#738c87" stroke-width="3" stroke-dasharray="8 10"/>
-                        <path d="M270 265l58-106 58 106z" fill="#e8eeeb" stroke="#164e4a" stroke-width="7"/>
+                        <g fill="#326867"><circle cx="112" cy="198" r="11"/><circle cx="240" cy="78" r="11"/><circle cx="519" cy="92" r="11"/><circle cx="660" cy="296" r="11"/></g>
+                        <g><rect x="542" y="30" width="48" height="48" rx="5" fill="#e66f4b"/><rect x="600" y="30" width="48" height="48" rx="5" fill="#d5a66a"/><rect x="658" y="30" width="48" height="48" rx="5" fill="#fffdf8"/></g>
+                        <path d="M0 388h174m314-274h49m-249 98h-45" stroke="#fffdf8" stroke-width="3" stroke-dasharray="8 10"/>
+                        <path d="M270 265l58-106 58 106z" fill="#e5c492" stroke="#326867" stroke-width="7"/>
                     </svg>
         ` : item.visualType === 'book' ? `
                     <div class="work-card-book-cover" role="img" aria-label="AI 훈민정음 책 표지를 활용한 편집형 북 커버">
@@ -255,6 +256,24 @@ function initHeroTypingAnimation() {
     const stampIcon = document.getElementById('hero-icon');
     const interactiveImage = document.getElementById('interactive-hero-image');
 
+    if (interactiveImage) {
+        const imageWrapper = interactiveImage.parentElement;
+
+        imageWrapper.addEventListener('mousemove', (e) => {
+            const rect = imageWrapper.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const xOffset = ((x / rect.width) - 0.5) * 4;
+            const yOffset = ((y / rect.height) - 0.5) * -4;
+
+            interactiveImage.style.transform = `perspective(1000px) rotateY(${xOffset}deg) rotateX(${yOffset}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+
+        imageWrapper.addEventListener('mouseleave', () => {
+            interactiveImage.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale3d(1, 1, 1)';
+        });
+    }
+
     if (!textElement || !cursorElement) return;
 
     const textToType = '한글, 일상을 예술로 만들다';
@@ -306,24 +325,4 @@ function initHeroTypingAnimation() {
     // Start typing after a short delay
     setTimeout(typeChar, 800);
 
-    // Interactive Hover Effect on Main Image
-    if (interactiveImage) {
-        const imageWrapper = interactiveImage.parentElement;
-
-        imageWrapper.addEventListener('mousemove', (e) => {
-            const rect = imageWrapper.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            // Calculate rotation (max 2 degrees)
-            const xOffset = ((x / rect.width) - 0.5) * 4;
-            const yOffset = ((y / rect.height) - 0.5) * -4;
-
-            interactiveImage.style.transform = `perspective(1000px) rotateY(${xOffset}deg) rotateX(${yOffset}deg) scale3d(1.02, 1.02, 1.02)`;
-        });
-
-        imageWrapper.addEventListener('mouseleave', () => {
-            interactiveImage.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale3d(1, 1, 1)`;
-        });
-    }
 }
