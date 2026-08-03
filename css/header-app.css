@@ -1,0 +1,132 @@
+body > header nav ul,
+body > header nav li,
+.nav-app-list-item {
+    display: flex;
+    align-items: center;
+}
+
+body > header nav ul {
+    justify-content: flex-end;
+}
+
+body > header nav a:not(.nav-app-button) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    padding: 0 2px;
+    line-height: 1;
+}
+
+@media (min-width: 768px) {
+    body > header nav {
+        display: flex !important;
+        align-items: center;
+        justify-content: flex-end;
+    }
+}
+
+body .nav-app-button,
+body.poster-theme > header nav a.nav-app-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    min-width: 60px;
+    height: 30px;
+    padding: 0 12px;
+    margin-left: 10px;
+    isolation: isolate;
+    overflow: hidden;
+    border: 1px solid rgba(37, 79, 80, .30);
+    border-radius: 999px;
+    background: linear-gradient(180deg, rgba(95, 119, 117, .16) 0%, rgba(55, 83, 82, .11) 48%, rgba(37, 65, 64, .14) 100%);
+    color: rgba(255, 253, 248, .94) !important;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: normal;
+    vertical-align: middle;
+    -webkit-backdrop-filter: blur(14px) saturate(125%);
+    backdrop-filter: blur(14px) saturate(125%);
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, .58),
+        inset 0 -1px 2px rgba(27, 54, 54, .14),
+        0 1px 0 rgba(255, 255, 255, .32),
+        0 3px 7px rgba(37, 58, 57, .07);
+    text-shadow: 0 1px 1px rgba(24, 48, 47, .14);
+    text-decoration: none;
+    transition:
+        background 160ms ease,
+        border-color 160ms ease,
+        color 160ms ease,
+        transform 160ms ease,
+        box-shadow 160ms ease;
+}
+
+body .nav-app-button::before,
+body.poster-theme > header nav a.nav-app-button::before {
+    position: absolute;
+    z-index: -1;
+    inset: 2px;
+    border: 1px solid rgba(255, 255, 255, .28);
+    border-radius: inherit;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .36),
+        inset 0 -1px 0 rgba(25, 54, 53, .12);
+    content: '';
+    pointer-events: none;
+}
+
+body .nav-app-button::after,
+body.poster-theme > header nav a.nav-app-button::after {
+    position: absolute;
+    top: 3px;
+    right: 10px;
+    left: 10px;
+    height: 38%;
+    border-radius: 999px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, .54) 0%, rgba(255, 255, 255, .15) 62%, transparent 100%);
+    content: '';
+    opacity: .45;
+    filter: blur(.2px);
+    pointer-events: none;
+}
+
+body .nav-app-button:hover,
+body.poster-theme > header nav a.nav-app-button:hover {
+    border-color: rgba(230, 111, 75, .44);
+    background: linear-gradient(180deg, rgba(111, 135, 132, .20) 0%, rgba(66, 94, 92, .15) 48%, rgba(43, 72, 70, .18) 100%);
+    color: var(--color-paper-light, #fffdf8) !important;
+    transform: translateY(-1px);
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, .64),
+        inset 0 -1px 2px rgba(27, 54, 54, .18),
+        0 1px 0 rgba(255, 255, 255, .38),
+        0 4px 8px rgba(37, 58, 57, .09);
+}
+
+body .nav-app-button:focus-visible,
+body.poster-theme > header nav a.nav-app-button:focus-visible {
+    outline: 2px solid var(--color-coral, #e66f4b);
+    outline-offset: 3px;
+}
+
+.nav-app-button--mobile {
+    display: none !important;
+}
+
+@media (max-width: 767px) {
+    .nav-app-button--mobile {
+        display: inline-flex !important;
+        width: auto !important;
+        min-width: 0 !important;
+        height: 30px !important;
+        padding: 0 10px !important;
+        margin: 0 0 0 4px !important;
+        border-radius: 10px !important;
+        font-size: 14px;
+    }
+}
