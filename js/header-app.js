@@ -16,7 +16,9 @@
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
         link.setAttribute('aria-label', 'HangulArt App 열기');
-        link.textContent = 'App';
+        const label = document.createElement('span');
+        label.textContent = 'App';
+        link.append(label);
         return link;
     };
 
